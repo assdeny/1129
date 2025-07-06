@@ -1,9 +1,12 @@
-FROM php:8.2-apache
+FROM php:8.1-apache
 
-# Salin semua file ke direktori Apache default
+# Install ekstensi mysqli
+RUN docker-php-ext-install mysqli
+
+# Salin semua file ke direktori root apache
 COPY . /var/www/html/
 
-# Aktifkan mod_rewrite jika perlu
-RUN a2enmod rewrite
+# Berikan permission
+RUN chown -R www-data:www-data /var/www/html
 
 EXPOSE 80
